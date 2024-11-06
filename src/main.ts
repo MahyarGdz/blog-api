@@ -36,6 +36,7 @@ async function bootstrap() {
     .setTitle("Blog Api")
     .setDescription("blog api swagger docs")
     .setVersion("0.0.1")
+    .addServer("https://blog-api.run.danakcorp.com")
     .addBearerAuth(
       {
         type: "http",
