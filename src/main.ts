@@ -1,5 +1,3 @@
-import { join } from "path";
-
 import { Logger, ValidationPipe } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
 import { NestExpressApplication } from "@nestjs/platform-express";
@@ -14,7 +12,7 @@ async function bootstrap() {
 
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
-  app.useStaticAssets(join(process.cwd(), process.env.UPLOAD_DEST), { prefix: "/images" });
+  app.useStaticAssets("uploads", { prefix: "/images" });
   app.set("trust proxy", 1);
 
   app.enableCors({
