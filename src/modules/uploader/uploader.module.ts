@@ -8,13 +8,9 @@ import { diskStorage } from "multer";
 
 import { UploaderController } from "./uploader.controller";
 import { UploaderService } from "./uploader.service";
-import { AuthModule } from "../auth/auth.module";
-import { UsersModule } from "../users/users.module";
 
 @Module({
   imports: [
-    AuthModule,
-    UsersModule,
     MulterModule.registerAsync({
       inject: [ConfigService],
       useFactory: async (configService: ConfigService) => {

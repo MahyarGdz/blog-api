@@ -1,4 +1,4 @@
-import { CanActivate, ExecutionContext, ForbiddenException, Inject, Injectable, Logger, UnauthorizedException, forwardRef } from "@nestjs/common";
+import { CanActivate, ExecutionContext, ForbiddenException, Injectable, Logger, UnauthorizedException } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 
 import { TokenPayload } from "../../../common/types/token-payload.type";
@@ -9,7 +9,7 @@ export class AuthGuard implements CanActivate {
   private readonly logger = new Logger(AuthGuard.name);
   constructor(
     private jwtService: JwtService,
-    @Inject(forwardRef(() => UsersService)) private userService: UsersService,
+    private userService: UsersService,
   ) {}
   async canActivate(context: ExecutionContext) {
     const req = context.switchToHttp().getRequest();
