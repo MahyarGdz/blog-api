@@ -1,7 +1,8 @@
-import { Module } from "@nestjs/common";
+import { MiddlewareConsumer, Module, NestModule } from "@nestjs/common";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { MongooseModule } from "@nestjs/mongoose";
 
+import { HttpLogger } from "./core/middleware/logger.middleware";
 import { AuthModule } from "./modules/auth/auth.module";
 import { BlogsModule } from "./modules/blogs/blogs.module";
 import { UploaderModule } from "./modules/uploader/uploader.module";
@@ -19,6 +20,7 @@ import { UsersModule } from "./modules/users/users.module";
     }),
     ConfigModule.forRoot({
       isGlobal: true,
+      cache: true,
     }),
     BlogsModule,
     AuthModule,
@@ -26,4 +28,8 @@ import { UsersModule } from "./modules/users/users.module";
     UploaderModule,
   ],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(HttpLogger).forRoutes("*");
+  }
+}
